@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File & Link Sharing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .uploads {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .upload-item {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>File & Link Sharing</h2>
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">Upload File</button>
+        <input type="text" id="linkInput" placeholder="Enter a link">
+        <button onclick="shareLink()">Share Link</button>
+        <div class="uploads" id="uploadsContainer"></div>
+    </div>
+    <script>
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileUrl = URL.createObjectURL(file);
+                displayUpload(file.name, fileUrl);
+            }
+        }
+
+        function shareLink() {
+            const linkInput = document.getElementById('linkInput').value;
+            if (linkInput) {
+                displayUpload(linkInput, linkInput);
+                document.getElementById('linkInput').value = "";
+            }
+        }
+
+        function displayUpload(name, url) {
+            const uploadsContainer = document.getElementById('uploadsContainer');
+            const div = document.createElement('div');
+            div.className = 'upload-item';
+            div.innerHTML = `<a href="${url}" target="_blank">${name}</a>`;
+            uploadsContainer.appendChild(div);
+        }
+    </script>
+</body>
+</html>
